@@ -1,0 +1,39 @@
+name: minimal-two-agents
+version: "0.1.0"
+
+agents:
+  - name: planner
+    model_provider: openai/gpt-4o-mini
+    system_prompt: |
+      You are a planning agent. Break the user's task into concrete steps
+      and pass the plan to the executor.
+    temperature: 0.0
+    max_tokens: 512
+    tools:
+      - web_search
+
+  - name: executor
+    model_provider: openai/gpt-4o-mini
+    system_prompt: |
+      You are an execution agent. Receive a plan from the planner and
+      carry out each step in order, reporting results.
+    temperature: 0.0
+    max_tokens: 1024
+    tools: []
+
+tools:
+  - name: web_search
+    kind: http
+    parameters:
+      url:
+        type: string
+        description: The URL to fetch
+      query:
+        type: string
+        description: Search query string
+
+edges:
+  - from_agent: planner
+    to_agent: executor
+
+entry_point: planner
