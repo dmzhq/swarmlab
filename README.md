@@ -7,9 +7,10 @@
 [![Python](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/)
 
 > [!NOTE]
-> Early development. The 0.1 release will ship the deterministic replay engine
-> and provider parity for OpenAI, Anthropic, and locally-served models via
-> vLLM and Ollama. Star the repo to follow progress.
+> This is the v0.1 release. The replay engine, scheduler, and provider adapter
+> are shipped and tested. Provider parity covers OpenAI, Anthropic, and
+> locally-served models via vLLM and Ollama. Eval harness and OTel export are
+> planned for v0.2.
 
 ---
 
@@ -35,27 +36,35 @@ quality drift across providers on the same trace.
 | Component                          | Status        |
 |------------------------------------|---------------|
 | Toolchain bootstrap (uv, ruff, pyright, pytest) | ✅ shipped |
-| DAG schema + loaders               | 🚧 in progress |
-| Content-addressed store            | 🚧 in progress |
-| Provider adapter + deterministic seeds | planned   |
-| Scheduler with retries + fan-out   | planned       |
-| Replay engine                      | planned       |
-| Eval harness                       | planned       |
-| OpenTelemetry export               | planned       |
+| DAG schema + loaders               | ✅ shipped     |
+| Content-addressed store (SQLite)   | ✅ shipped     |
+| Provider adapter + deterministic seeds | ✅ shipped |
+| Scheduler with retries + fan-out   | ✅ shipped     |
+| Replay engine                      | ✅ shipped     |
+| CLI (`run`, `replay`, `inspect`)   | ✅ shipped     |
+| Eval harness                       | planned (v0.2) |
+| OpenTelemetry export               | planned (v0.2) |
 
 ## Install
 
 ```bash
-# coming soon (will publish to PyPI with 0.1)
-pip install swarmlab
+# install from source while PyPI publication is pending
+git clone https://github.com/dmzhq/swarmlab
+cd swarmlab
+pip install -e .
 ```
 
 ## Quickstart
 
 ```bash
-# planned for 0.1 — placeholder
-swarmlab run examples/01_minimal_two_agents.yaml
-swarmlab replay <run-id>
+# Run a DAG (records every step to swarmlab.db)
+swarmlab run examples/01_minimal_two_agents.yaml --provider deterministic_mock
+
+# Replay the same run from the store — zero LLM cost
+swarmlab replay <run-id> examples/01_minimal_two_agents.yaml
+
+# Inspect a recorded run
+swarmlab inspect <run-id>
 ```
 
 ## Design principles
