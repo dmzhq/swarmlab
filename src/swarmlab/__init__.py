@@ -5,12 +5,13 @@ from __future__ import annotations
 from swarmlab.dag import AgentSpec, DAGSpec, EdgeSpec, ToolSpec
 from swarmlab.loaders import DAGValidationError, load_python, load_yaml
 from swarmlab.providers import CompletionResult, Message, Provider, get_provider
+from swarmlab.replay import ReplayEngine, ReplayProvider, ReplayResult
 from swarmlab.scheduler import RunResult, Scheduler
 from swarmlab.seed import compute_invocation_seed
 from swarmlab.store import ContentAddressedStore, Entry
 from swarmlab.tool import FunctionTool, Tool
 
-__version__ = "0.0.1"
+__version__ = "0.1.0"
 __all__ = [
     "AgentSpec",
     "CompletionResult",
@@ -22,6 +23,9 @@ __all__ = [
     "FunctionTool",
     "Message",
     "Provider",
+    "ReplayEngine",
+    "ReplayProvider",
+    "ReplayResult",
     "RunResult",
     "Scheduler",
     "Tool",

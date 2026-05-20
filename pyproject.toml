@@ -1,6 +1,6 @@
 [project]
 name = "swarmlab"
-version = "0.0.1"
+version = "0.1.0"
 description = "Deterministic, replayable multi-agent runs across any LLM provider"
 readme = "README.md"
 license = { text = "Apache-2.0" }
