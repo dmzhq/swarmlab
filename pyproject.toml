@@ -32,7 +32,7 @@ dependencies = [
   "httpx>=0.28",
   "litellm>=1.52",
   "opentelemetry-api>=1.27",
-  "opentelemetry-sdk>=1.27",
+  "opentelemetry-sdk>=1.42.1",
   "pyyaml>=6.0",
 ]
 
